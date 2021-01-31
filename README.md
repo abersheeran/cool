@@ -77,6 +77,19 @@ R(print, "hello") > out
 out.read() == "hello"
 ```
 
+Note that after the calculation is over, `R` will faithfully return the return value of your function. Try the following example.
+
+```python
+from cool import F, R
+
+
+def func():
+    return range(10) | F(map, lambda x: print(x) or x) | F(sum)
+
+
+print(R(func) > "filepath")
+```
+
 ### Set Global
 
 Maybe you don't want to use `from cool import F` in every file of the entire project, you can use the following code to set it as a global function, just like `min`/`max`/`sum`.
