@@ -65,16 +65,27 @@ R(print, "hello") > "your-filepath"
 R(print, "world") >> "your-filepath"
 ```
 
-Maybe you want to redirect to other streams
+Redirect to other streams.
 
 ```python
 from io import StringIO
 from cool import R
 
-
 out = StringIO("")
+
 R(print, "hello") > out
+
 out.read() == "hello"
+```
+
+Maybe you also want to block the output, just like `> /dev/null`.
+
+```python
+from cool import R
+
+R(print, "hello") > None
+# Or
+R(print, "hello") >> None
 ```
 
 Note that after the calculation is over, `R` will faithfully return the return value of your function. Try the following example.

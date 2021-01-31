@@ -48,6 +48,11 @@ def test_r_file():
         os.remove("filepath")
 
 
+def test_r_null():
+    R(print_hello) > None
+    R(print_hello) >> None
+
+
 def test_r_error():
     with pytest.raises(TypeError):
         R(print_hello) > 0

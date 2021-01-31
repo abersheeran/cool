@@ -22,8 +22,27 @@ def redirect(fd):
         setattr(sys.stderr, "write", _stderr_write)
 
 
+class DevNull:
+    """
+    /dev/null
+    """
+
+    @staticmethod
+    def write(text):
+        """
+        nothing to do
+        """
+
+
 class R(partial):
+    """
+    Python redirect. e.g.`R(print, "hello") > "filepath"`
+    """
+
     def __gt__(self, other):
+        """
+        impl `>` with `w+` mode
+        """
         if isinstance(other, str):
             with open(other, "w+", encoding="utf8") as file:
                 with redirect(file):
@@ -33,9 +52,15 @@ class R(partial):
                 other.seek(0, 0)
             with redirect(other):
                 return self()
+        elif other is None:
+            with redirect(DevNull):
+                return self()
         return NotImplemented
 
     def __rshift__(self, other):
+        """
+        impl `>>` with `a+` mode
+        """
         if isinstance(other, str):
             with open(other, "a+", encoding="utf8") as file:
                 with redirect(file):
@@ -44,5 +69,8 @@ class R(partial):
             if other.seekable():
                 other.seek(0, 2)
             with redirect(other):
+                return self()
+        elif other is None:
+            with redirect(DevNull):
                 return self()
         return NotImplemented
