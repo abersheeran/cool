@@ -1,0 +1,34 @@
+[tool.poetry]
+authors = ["abersheeran <me@abersheeran.com>"]
+description = ""
+license = "Apache-2.0"
+name = "setup.py" # TODO
+readme = "README.md"
+version = "0.1.0"
+
+homepage = "https://github.com/abersheeran/setup.py" # TODO
+repository = "https://github.com/abersheeran/setup.py" # TODO
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+]
+
+packages = [
+  {include = "example"}, # TODO
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+black = {version = "*", allow-prereleases = true}
+flake8 = "*"
+pytest = "^5.4.3"
+
+[tool.dephell.main]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "setuppy", path = "setup.py"}
+
+[build-system]
+build-backend = "poetry.masonry.api"
+requires = ["poetry>=0.12"]
