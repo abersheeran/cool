@@ -108,7 +108,7 @@ Maybe you don't want to use `from cool import F` in every file of the entire pro
 ```python
 import cool
 
-pipe.set_global(cool.F, cool.FF)
+cool.set_global(cool.F, cool.FF)
 ```
 
 Maybe you also want to expose `functools.reduce` to the world, just like `map`/`filter`.
@@ -117,5 +117,5 @@ Maybe you also want to expose `functools.reduce` to the world, just like `map`/`
 import functools
 import cool
 
-pipe.set_global(cool.F, cool.FF, functools.reduce)
+cool.set_global(cool.F, cool.FF, functools.reduce)
 ```
