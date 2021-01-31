@@ -26,4 +26,4 @@ def shell(command: str) -> None:
 
 
 if __name__ == "__main__":
-    shell("pytest -o log_cli=true -o log_cli_level=DEBUG")
+    shell("pytest --cov --cov-fail-under=100 -o log_cli=true -o log_cli_level=DEBUG")

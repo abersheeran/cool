@@ -2,32 +2,45 @@
 authors = ["abersheeran <me@abersheeran.com>"]
 description = ""
 license = "Apache-2.0"
-name = "setup.py" # TODO
+name = "cool"
 readme = "README.md"
 version = "0.1.0"
 
-homepage = "https://github.com/abersheeran/setup.py" # TODO
-repository = "https://github.com/abersheeran/setup.py" # TODO
+homepage = "https://github.com/abersheeran/cool"
+repository = "https://github.com/abersheeran/cool"
 
 classifiers = [
-  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: Implementation :: CPython",
 ]
 
 packages = [
-  {include = "example"}, # TODO
+  {include = "cool"},
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "~2.7 || ^3.5"
 
 [tool.poetry.dev-dependencies]
 black = {version = "*", allow-prereleases = true}
 flake8 = "*"
 pytest = "^5.4.3"
+pytest-cov = "^2.11.1"
 
-[tool.dephell.main]
-from = {format = "poetry", path = "pyproject.toml"}
-to = {format = "setuppy", path = "setup.py"}
+[tool.coverage.run]
+omit = ["*/.venv/*", "*/tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if False:",
+  "assert False",
+]
+show_missing = true
+skip_covered = true
 
 [build-system]
 build-backend = "poetry.masonry.api"

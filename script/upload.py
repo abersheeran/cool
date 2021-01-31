@@ -2,7 +2,7 @@ import os
 
 here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-package_name = "example"  # TODO Custom package name
+package_name = "cool"
 
 
 def get_version(package: str = package_name) -> str:
