@@ -14,7 +14,7 @@ def out():
 
 
 def print_hello():
-    print("hello")
+    print("hello", end=" ")
 
 
 def print_world():
@@ -23,36 +23,39 @@ def print_world():
 
 def test_r_w(out):
     R(print_hello) > out
-    out.read() == "hello"
+    out.seek(0, 0)
+    assert out.read() == "hello "
 
     R(print_world) > out
-    out.read() == "world"
+    out.seek(0, 0)
+    assert out.read() == "world\n"
 
 
 def test_r_a(out):
     R(print_hello) >> out
     R(print_world) >> out
-    out.read() == "helllworld"
+    out.seek(0, 0)
+    assert out.read() == "hello world\n"
 
 
 def test_r_file():
     try:
         R(print_hello) > "filepath"
         with open("filepath", encoding="utf8") as file:
-            assert file.read() == "hello\n"
+            assert file.read() == "hello "
 
         R(print_hello) >> "filepath"
         with open("filepath", encoding="utf8") as file:
-            assert file.read() == "hello\n" * 2
+            assert file.read() == "hello " * 2
 
         with open("filepath", "w+", encoding="utf8") as file:
             R(print_hello) > file
             file.seek(0, 0)
-            assert file.read() == "hello\n"
+            assert file.read() == "hello "
 
             R(print_hello) >> file
             file.seek(0, 0)
-            assert file.read() == "hello\n" * 2
+            assert file.read() == "hello " * 2
 
     finally:
         os.remove("filepath")
