@@ -1,6 +1,6 @@
 # Cool
 
-Make Python code cooler.
+Make Python code cooler. 100% coverage. Use and enjoy this code!
 
 ## Install
 
