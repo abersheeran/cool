@@ -79,7 +79,7 @@ out = StringIO("")
 
 R(print, "hello") > out
 
-out.read() == "hello"
+out.read() == "hello\n"
 ```
 
 Maybe you also want to block the output, just like `> /dev/null`.
