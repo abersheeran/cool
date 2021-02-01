@@ -16,8 +16,8 @@ def redirect(fd):
         setattr(sys.stderr, "write", fd.write)
         yield None
     finally:
-        sys.stdout.flush()
-        sys.stderr.flush()
+        fd.flush()
+        fd.flush()
         setattr(sys.stdout, "write", _stdout_write)
         setattr(sys.stderr, "write", _stderr_write)
 
@@ -29,6 +29,12 @@ class DevNull:
 
     @staticmethod
     def write(text):
+        """
+        nothing to do
+        """
+
+    @staticmethod
+    def flush():
         """
         nothing to do
         """
