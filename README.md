@@ -1,4 +1,4 @@
-# Cool
+# Cool.py
 
 Make Python code cooler. 100% coverage. Use and enjoy this code!
 
@@ -61,15 +61,19 @@ from cool import R
 
 # Redirect output to specified filepath
 R(print, "hello") > "your-filepath"
+
 # Append mode
 R(print, "world") >> "your-filepath"
 ```
 
-Redirect to other streams.
+Redirect to opened file or other streams.
 
 ```python
 from io import StringIO
 from cool import R
+
+with open("filepath", "w+", encoding="utf8") as file:
+    R(print, "hello") >> file
 
 out = StringIO("")
 
@@ -94,11 +98,11 @@ Note that after the calculation is over, `R` will faithfully return the return v
 from cool import F, R
 
 
-def func():
-    return range(10) | F(map, lambda x: print(x) or x) | F(sum)
+def func(num):
+    return range(num) | F(map, lambda x: print(x) or x) | F(sum)
 
 
-print(R(func) > "filepath")
+print(R(func, 10) > "filepath")
 ```
 
 ### Set Global
