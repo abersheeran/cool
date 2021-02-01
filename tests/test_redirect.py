@@ -44,6 +44,16 @@ def test_r_file():
         R(print_hello) >> "filepath"
         with open("filepath", encoding="utf8") as file:
             assert file.read() == "hello\n" * 2
+
+        with open("filepath", "w+", encoding="utf8") as file:
+            R(print_hello) > file
+            file.seek(0, 0)
+            assert file.read() == "hello\n"
+
+            R(print_hello) >> file
+            file.seek(0, 0)
+            assert file.read() == "hello\n" * 2
+
     finally:
         os.remove("filepath")
 
