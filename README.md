@@ -79,6 +79,7 @@ out = StringIO("")
 
 R(print, "hello") > out
 
+out.seek(0, 0)
 out.read() == "hello\n"
 ```
 
