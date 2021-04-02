@@ -6,20 +6,20 @@ from io import TextIOBase
 
 @contextmanager
 def redirect(fd):
-    _stdout_write = sys.stdout.write
-    _stderr_write = sys.stderr.write
+    _stdout = sys.stdout
+    _stderr = sys.stderr
 
     try:
         sys.stdout.flush()
         sys.stderr.flush()
-        setattr(sys.stdout, "write", fd.write)
-        setattr(sys.stderr, "write", fd.write)
+        sys.stdout = fd
+        sys.stderr = fd
         yield None
     finally:
         fd.flush()
         fd.flush()
-        setattr(sys.stdout, "write", _stdout_write)
-        setattr(sys.stderr, "write", _stderr_write)
+        sys.stdout = _stdout
+        sys.stderr = _stderr
 
 
 class DevNull:
