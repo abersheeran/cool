@@ -31,4 +31,4 @@ jobs:
       - name: Test with pytest
         run: |
           pytest --cov --cov-fail-under=100 -o log_cli=true -o log_cli_level=DEBUG
-          python .\tests\test_examples.py
+          python ./tests/test_examples.py
