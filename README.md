@@ -54,16 +54,19 @@ range(100) | Filter(lambda x: x % 2) | Map(lambda x: x * x) | Reduce(lambda x, y
 
 ### Redirect
 
-Just like the redirection symbol in `Shell`, you can redirect the output to a specified file or `TextIO` object through `>` or `>>`. *Note: `R` inherits from `functools.partial`.*
+Just like the redirection symbol in `Shell`, you can redirect the output to a specified file or `TextIO` object through `>` or `>>`.
+
+*Note: `R` inherits from `functools.partial`.*
 
 ```python
+from pathlib import PurePath
 from cool import R
 
 # Redirect output to specified filepath
-R(print, "hello") > "your-filepath"
+R(print, "hello") > PurePath("your-filepath")
 
 # Append mode
-R(print, "world") >> "your-filepath"
+R(print, "world") >> PurePath("your-filepath")
 ```
 
 Redirect to opened file or other streams.
@@ -72,7 +75,7 @@ Redirect to opened file or other streams.
 from io import StringIO
 from cool import R
 
-with open("filepath", "w+", encoding="utf8") as file:
+with open("filepath", "a+", encoding="utf8") as file:
     R(print, "hello") >> file
 
 out = StringIO("")
@@ -96,6 +99,7 @@ R(print, "hello") >> None
 Note that after the calculation is over, `R` will faithfully return the return value of your function. Try the following example.
 
 ```python
+from pathlib import PurePath
 from cool import F, R
 
 
@@ -103,7 +107,7 @@ def func(num):
     return range(num) | F(map, lambda x: print(x) or x) | F(sum)
 
 
-print(R(func, 10) > "filepath")
+print(R(func, 10) > PurePath("filepath"))
 ```
 
 ### Set Global

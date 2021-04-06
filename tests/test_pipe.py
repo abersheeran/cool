@@ -1,6 +1,6 @@
 import functools
 
-from cool import set_global, F, FF
+from cool import FF, F, set_global
 
 set_global(functools.reduce)
 

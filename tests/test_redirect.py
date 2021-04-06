@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import os
 from io import StringIO
+from pathlib import PurePath
 
 import pytest
 
@@ -39,16 +40,17 @@ def test_r_a(out):
 
 
 def test_r_file():
+    filepath = PurePath("filepath")
     try:
-        R(print_hello) > "filepath"
-        with open("filepath", encoding="utf8") as file:
+        R(print_hello) > filepath
+        with open(filepath, encoding="utf8") as file:
             assert file.read() == "hello "
 
-        R(print_hello) >> "filepath"
-        with open("filepath", encoding="utf8") as file:
+        R(print_hello) >> filepath
+        with open(filepath, encoding="utf8") as file:
             assert file.read() == "hello " * 2
 
-        with open("filepath", "w+", encoding="utf8") as file:
+        with open(filepath, "w+", encoding="utf8") as file:
             R(print_hello) > file
             file.seek(0, 0)
             assert file.read() == "hello "
@@ -58,7 +60,7 @@ def test_r_file():
             assert file.read() == "hello " * 2
 
     finally:
-        os.remove("filepath")
+        os.remove(filepath)
 
 
 def test_r_null():

@@ -1,4 +1,4 @@
-from .pipe import F, FF
+from .pipe import FF, F
 from .redirect import R
 
 
