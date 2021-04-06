@@ -30,4 +30,5 @@ jobs:
           poetry install
       - name: Test with pytest
         run: |
-          python script/test.py
+          pytest --cov --cov-fail-under=100 -o log_cli=true -o log_cli_level=DEBUG
+          python .\tests\test_examples.py
