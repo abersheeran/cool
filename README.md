@@ -18,6 +18,8 @@ pip install git+https://github.com/abersheeran/cool@setup.py
 
 ### Pipe
 
+*Note: as fast as you didn't use F!*
+
 Use pipeline to pass data as a positional parameter to the next function:
 
 ```python
