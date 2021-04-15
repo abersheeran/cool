@@ -49,6 +49,32 @@ square = F(pow, ..., 2)
 assert range(10) | F(map, square) | F(sum) == 285
 ```
 
+### Compose functions
+
+Sometimes we want to combine functions to reduce the length of the final call chain.
+
+```python
+from cool import C, F
+
+nonlazy_map = map >> C(list)
+
+assert range(10) | F(nonlazy_map, lambda x: x * x) == [i * i for i in range(10)]
+```
+
+Of course, you can also use CC to pass multiple parameters.
+
+```python
+import functools
+from cool import CC, F
+
+reduce = (
+    (lambda a0, a1, a2=None: (a0, a1) if a2 is None else (a0, a2, a1))
+    >> CC(functools.reduce)
+)
+assert range(10) | F(reduce, lambda x, y: x + y) == 45
+assert range(10) | F(reduce, lambda x, y: x + y, 55) == 100
+```
+
 The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduce(lambda x, y: x + y, range(10), 10)`.
 
 ### Redirect
