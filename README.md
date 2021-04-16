@@ -51,7 +51,9 @@ assert range(10) | F(map, square) | F(sum) == 285
 
 ### Compose functions
 
-Sometimes we want to combine functions to reduce the length of the final call chain.
+*Inspired by [F# function-composition-and-pipelining](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/#function-composition-and-pipelining).*
+
+Combine two functions to generate a new function.
 
 ```python
 from cool import C, F
@@ -75,7 +77,29 @@ assert range(10) | F(reduce, lambda x, y: x + y) == 45
 assert range(10) | F(reduce, lambda x, y: x + y, 55) == 100
 ```
 
+<<<<<<< HEAD
 The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduce(lambda x, y: x + y, range(10), 10)`.
+=======
+Maybe you don't understand the meaning of this operator. So let me give two examples.
+
+```
+t = f >> C(g)
+y = t(x)
+
+# Equivalent to
+
+y = g(f(x))
+```
+
+```
+t = f >> CC(g)
+y = t(x)
+
+# Equivalent to
+
+y = g(*f(x))
+```
+>>>>>>> Update compose functions document
 
 ### Redirect
 
