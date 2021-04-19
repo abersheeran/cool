@@ -25,7 +25,7 @@ Use pipeline to pass data as a positional parameter to the next function:
 ```python
 from cool import F
 
-range(10) | F(filter, lambda x: x % 2) | F(sum) == 25
+assert range(10) | F(filter, lambda x: x % 2) | F(sum) == 25
 ```
 
 Or you need to pass multiple parameters through the pipeline:
@@ -33,7 +33,7 @@ Or you need to pass multiple parameters through the pipeline:
 ```python
 from cool import FF
 
-(1, 2) | FF(lambda x, y: x + y) == 3
+assert (1, 2) | FF(lambda x, y: x + y) == 3
 ```
 
 You can use `...` as a placeholder. This is useful when you need to pass non-continuous parameters to create a partial function.
@@ -42,11 +42,11 @@ You can use `...` as a placeholder. This is useful when you need to pass non-con
 from functools import reduce
 from cool import F
 
-range(10) | F(reduce, lambda x, y: x + y) == 45
-range(10) | F(reduce, lambda x, y: x + y, ..., 10) == 55
+assert range(10) | F(reduce, lambda x, y: x + y) == 45
+assert range(10) | F(reduce, lambda x, y: x + y, ..., 10) == 55
 
 square = F(pow, ..., 2)
-range(10) | F(map, square) | F(sum) == 285
+assert range(10) | F(map, square) | F(sum) == 285
 ```
 
 The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduce(lambda x, y: x + y, range(10), 10)`.
@@ -77,12 +77,11 @@ from cool import R
 with open("filepath", "a+", encoding="utf8") as file:
     R(print, "hello") >> file
 
+
 out = StringIO("")
-
 R(print, "hello") > out
-
 out.seek(0, 0)
-out.read() == "hello\n"
+assert out.read() == "hello\n"
 ```
 
 Maybe you also want to block the output, just like `> /dev/null`.
