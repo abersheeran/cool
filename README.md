@@ -49,6 +49,8 @@ square = F(pow, ..., 2)
 assert range(10) | F(map, square) | F(sum) == 285
 ```
 
+The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduce(lambda x, y: x + y, range(10), 10)`.
+
 ### Compose functions
 
 *Inspired by [F# function-composition-and-pipelining](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/#function-composition-and-pipelining).*
@@ -77,9 +79,6 @@ assert range(10) | F(reduce, lambda x, y: x + y) == 45
 assert range(10) | F(reduce, lambda x, y: x + y, 55) == 100
 ```
 
-<<<<<<< HEAD
-The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduce(lambda x, y: x + y, range(10), 10)`.
-=======
 Maybe you don't understand the meaning of this operator. So let me give two examples.
 
 ```
@@ -99,7 +98,6 @@ y = t(x)
 
 y = g(*f(x))
 ```
->>>>>>> Update compose functions document
 
 ### Redirect
 
