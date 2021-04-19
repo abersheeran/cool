@@ -1,4 +1,4 @@
-from functools import partial
+from .partial import partial
 
 
 class F(partial):

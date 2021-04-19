@@ -33,26 +33,23 @@ Or you need to pass multiple parameters through the pipeline:
 ```python
 from cool import FF
 
-
-def get_data():
-    return 1, 2
-
-
-get_data() | FF(lambda x, y: x + y) == 3
+(1, 2) | FF(lambda x, y: x + y) == 3
 ```
 
-Use alias like follow code, you can use `map`/`filter`/`reduce` more conveniently:
+You can use `...` as a placeholder. This is useful when you need to pass non-continuous parameters to create a partial function.
 
 ```python
 from functools import reduce
 from cool import F
 
-Filter = F(F, filter)
-Map = F(F, map)
-Reduce = F(F, reduce)
+range(10) | F(reduce, lambda x, y: x + y) == 45
+range(10) | F(reduce, lambda x, y: x + y, ..., 10) == 55
 
-range(100) | Filter(lambda x: x % 2) | Map(lambda x: x * x) | Reduce(lambda x, y: x + y)
+square = F(pow, ..., 2)
+range(10) | F(map, square) | F(sum) == 285
 ```
+
+The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduce(lambda x, y: x + y, range(10), 10)`.
 
 ### Redirect
 
