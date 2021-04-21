@@ -1,19 +1,25 @@
 from .pipe import FF, F
 
 
-class P:
+class _PMeta(type):
+    def __rmatmul__(cls, function):
+        return cls._F_class(function)
+
+
+class _PBase(metaclass=_PMeta):
+    __slots__ = ("args", "kwargs")
+
     def __init__(self, *args, **kwargs):
         self.args = args
         self.kwargs = kwargs
 
     def __rmatmul__(self, function):
-        return F(function, *self.args, **self.kwargs)
+        return self._F_class(function, *self.args, **self.kwargs)
 
 
-class PP:
-    def __init__(self, *args, **kwargs):
-        self.args = args
-        self.kwargs = kwargs
+class P(_PBase):
+    _F_class = F
 
-    def __rmatmul__(self, function):
-        return FF(function, *self.args, **self.kwargs)
+
+class PP(_PBase):
+    _F_class = FF
