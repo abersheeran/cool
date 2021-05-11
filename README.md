@@ -20,7 +20,7 @@ pip install git+https://github.com/abersheeran/cool@setup.py
 
 *Note: as fast as you didn't use F!*
 
-Use pipeline to pass data as a positional parameter to the next function:
+Use pipeline to pass data as a positional parameter to the next function.
 
 ```python
 from cool import F
@@ -28,7 +28,7 @@ from cool import F
 assert range(10) | F(filter, lambda x: x % 2) | F(sum) == 25
 ```
 
-Or you need to pass multiple parameters through the pipeline:
+Or you need to pass multiple parameters through the pipeline. Note that `FF` can only accept one parameter, and it must be an iterable object.
 
 ```python
 from cool import FF

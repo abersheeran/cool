@@ -10,10 +10,10 @@ class F(partial):
         return self(other)
 
 
-class FF(partial):
+class FF(F):
     """
     Python Pipe. e.g.`("f", 10) | FF(lambda letter, num: letter * num)`
     """
 
-    def __ror__(self, other):
-        return self(*other)
+    def __call__(self, args):
+        return super().__call__(*args)

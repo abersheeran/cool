@@ -18,3 +18,9 @@ def test_f():
 def test_ff():
     assert (1, 2) | FF(lambda x, y: x + y) == 3
     assert [1, 2, 3] | FF(lambda x, y, z: x + y + z) == 6
+
+    assert FF(lambda x, y, z: x + y + z)([1, 2, 3]) == 6
+
+    assert list(iter({"a": 1, "b": 2}.items()) | F(map, FF(lambda k, v: k * v))) == [
+        name * value for name, value in {"a": 1, "b": 2}.items()
+    ]
