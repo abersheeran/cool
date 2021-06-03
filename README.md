@@ -51,6 +51,54 @@ assert range(10) | F(map, square) | F(sum) == 285
 
 The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduce(lambda x, y: x + y, range(10), 10)`.
 
+### Compose functions
+
+*Inspired by [F# function-composition-and-pipelining](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/#function-composition-and-pipelining).*
+
+Combine two functions to generate a new function.
+
+```python
+from cool import C, F
+
+nonlazy_map = map >> C(list)
+
+assert range(10) | F(nonlazy_map, lambda x: x * x) == [i * i for i in range(10)]
+```
+
+Of course, you can also use CC to pass multiple parameters.
+
+```python
+import functools
+from cool import CC, F
+
+reduce = (
+    (lambda a0, a1, a2=None: (a0, a1) if a2 is None else (a0, a2, a1))
+    >> CC(functools.reduce)
+)
+assert range(10) | F(reduce, lambda x, y: x + y) == 45
+assert range(10) | F(reduce, lambda x, y: x + y, 55) == 100
+```
+
+Maybe you don't understand the meaning of this operator. So let me give two examples.
+
+```
+t = f >> C(g)
+y = t(x)
+
+# Equivalent to
+
+y = g(f(x))
+```
+
+```
+t = f >> CC(g)
+y = t(x)
+
+# Equivalent to
+
+y = g(*f(x))
+```
+
 ### Redirect
 
 Just like the redirection symbol in `Shell`, you can redirect the output to a specified file or `TextIO` object through `>` or `>>`.
