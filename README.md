@@ -55,17 +55,15 @@ The `range(10) | F(reduce, lambda x, y: x + y, ..., 10)` is equivalent to `reduc
 
 Just like the redirection symbol in `Shell`, you can redirect the output to a specified file or `TextIO` object through `>` or `>>`.
 
-*Note: `R` inherits from `functools.partial`.*
-
 ```python
 from pathlib import PurePath
 from cool import R
 
 # Redirect output to specified filepath
-R(print, "hello") > PurePath("your-filepath")
+R(lambda : print("hello")) > PurePath("your-filepath")
 
 # Append mode
-R(print, "world") >> PurePath("your-filepath")
+R(lambda : print("hello")) >> PurePath("your-filepath")
 ```
 
 Redirect to opened file or other streams.
@@ -75,11 +73,11 @@ from io import StringIO
 from cool import R
 
 with open("filepath", "a+", encoding="utf8") as file:
-    R(print, "hello") >> file
+    R(lambda : print("hello")) >> file
 
 
 out = StringIO("")
-R(print, "hello") > out
+R(lambda : print("hello")) > out
 out.seek(0, 0)
 assert out.read() == "hello\n"
 ```
@@ -89,9 +87,9 @@ Maybe you also want to block the output, just like `> /dev/null`.
 ```python
 from cool import R
 
-R(print, "hello") > None
+R(lambda : print("hello")) > None
 # Or
-R(print, "hello") >> None
+R(lambda : print("hello")) >> None
 ```
 
 Note that after the calculation is over, `R` will faithfully return the return value of your function. Try the following example.
@@ -105,7 +103,7 @@ def func(num):
     return range(num) | F(map, lambda x: print(x) or x) | F(sum)
 
 
-print(R(func, 10) > PurePath("filepath"))
+print(R(lambda : func(10)) > PurePath("filepath"))
 ```
 
 ### Set Global
