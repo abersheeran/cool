@@ -103,7 +103,8 @@ def func(num):
     return range(num) | F(map, lambda x: print(x) or x) | F(sum)
 
 
-print(R(lambda : func(10)) > PurePath("filepath"))
+result = R(lambda : func(10)) > PurePath("filepath")
+assert result == 45
 ```
 
 ### Set Global
