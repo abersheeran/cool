@@ -9,3 +9,4 @@ def set_global(*args):
 
 
 __all__ = ["F", "FF", "R"]
+__version__ = "0.4.0"

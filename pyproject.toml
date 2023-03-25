@@ -1,31 +1,37 @@
-[tool.poetry]
-authors = ["abersheeran <me@abersheeran.com>"]
-description = ""
-license = "Apache-2.0"
+[project]
 name = "cool"
+dynamic = ["version"]
+description = "Make Python code cooler."
+authors = [{ name = "abersheeran", email = "me@abersheeran.com" }]
+dependencies = []
+requires-python = ">=2.7"
+license = { text = "Apache-2.0" }
 readme = "README.md"
-version = "0.4.0"
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 2",
+  "Programming Language :: Python :: 2.7",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
 
+[project.urls]
 homepage = "https://github.com/abersheeran/cool"
 repository = "https://github.com/abersheeran/cool"
 
-classifiers = [
-  "License :: OSI Approved :: Apache Software License",
-  "Programming Language :: Python :: Implementation :: CPython",
-]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-packages = [
-  {include = "cool"},
-]
+[tool.hatch.version]
+path = "cool/__init__.py"
 
-[tool.poetry.dependencies]
-python = "~2.7 || ^3.5"
-
-[tool.poetry.dev-dependencies]
-black = {version = "*", allow-prereleases = true}
-flake8 = "*"
-pytest = "^5.4.3"
-pytest-cov = "^2.11.1"
+[tool.hatch.build.targets.sdist]
+include = ["cool"]
 
 [tool.coverage.run]
 omit = ["*/.venv/*", "*/tests/*"]
@@ -41,7 +47,3 @@ exclude_lines = [
 ]
 show_missing = true
 skip_covered = true
-
-[build-system]
-build-backend = "poetry.masonry.api"
-requires = ["poetry>=0.12"]
